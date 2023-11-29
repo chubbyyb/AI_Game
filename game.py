@@ -17,16 +17,22 @@
 # We also addeed an option to save, and load your game.
 #
 # File Structure:
-# - main.py: The main game script.
-# - achievements.py: Module for handling achievements.
-# - leaderboards.py: Module for managing player rankings.
-# - puzzles.py: Module containing educational puzzle content.
+# - main.py: The script that starts them all
+# - game.py: Module containing the Game class.
+# - crimeScene.py: Module containing the CrimeScene class.
+# - loggable.py: Module containing the Loggable class.
+# - saveGame.py: Module containing the SaveGame class.
+# - story.py: Module containing the Story class.
+# - config.json: Configuration file for the game.
+# - stories: Folder containing the stories.
+# - saves: Folder containing the save files.
 #
 # Running the Game:
-# - To play "The Detective's Enigma" with our exciting expansions, run the
-# "main_game.py" file.
-# - Ensure that the "achievements.py," "leaderboards.py," and "puzzles.py"
-# modules are in the same directory for full functionality.
+# - To play "<Insert Story>" with our exciting expansions, 
+# run pip install -r requirements.txt,
+# - run the main.py script.
+# ensure that game.py, crimeScene.py, loggable.py, saveGame.py, story.py, and
+# config.json are in the same directory.
 #
 # Enjoy the game and have fun becoming the ultimate detective!
 #
@@ -37,9 +43,9 @@
 from termcolor import colored # for colored text
 from art import tprint # for the title
 from abc import ABC, abstractmethod # for abstract classes
-import os
-import json
-import climage
+import os # for the file system
+import json # for the json files
+import climage # for the image
 
 from loggable import Loggable
 from crimeScene import CrimeScene
