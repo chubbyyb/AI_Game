@@ -1,6 +1,6 @@
 ################################################################################
 # CMPU 2016 OOP – TU 857 - Semester 1 Assignment.
-# Group: The Code Wizards.
+# Group: OOPs I did it again
 
 # Members:
 # 1. Keith Salhani (student ID: C22322811).
@@ -8,10 +8,7 @@
 # 3. Ben Mc Carron (student ID: C22394893).
 # 4. Jennifer Bishop (student ID: C22363246).
 # 5. Catorina (C22408674)
-# jennifer was here
 # Date: October 20, 2023.
-#
-#bes was here
 # Game Expansion Explanation:
 #
 # In this expansion of our mystery game, "<Insert Story>," All stories are
@@ -53,6 +50,7 @@ from loggable import Loggable
 from crimeScene import CrimeScene
 from saveGame import SaveGame
 from story import Story
+from Leaderboard import Leaderboard
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -157,6 +155,7 @@ class Game:
         self.game_started = False
         self.characters_interacted = False
         self.crime_scene = crime_scene
+        self.lbObject = Leaderboard()
 
         #its 3AM again
 
@@ -303,6 +302,7 @@ class Game:
 
     def start_game(self):
         self.player_name = input(colored("Enter your detective's name: ", "white"))
+        self.lbObject.createScore(self.player_name)
         colored_player_name = colored(str(self.player_name), "white")
         print(f"Welcome, Detective {colored_player_name}!")
         #print("You find yourself in the opulent drawing room of a grand "
@@ -311,6 +311,7 @@ class Game:
         #      "case of...")
         #print("'The Missing Diamond Necklace'.")
         #print("Put your detective skills to the test and unveil the truth!")
+        
 
     def finish_game(self):
         user_decisions = {}
