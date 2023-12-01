@@ -7,7 +7,7 @@
 # 2. Limani (student ID: C22334951).
 # 3. Ben Mc Carron (student ID: C22394893).
 # 4. Jennifer Bishop (student ID: C22363246).
-# 5. Catorina (C22408674)
+# 5. Caitriona McCann (student ID: C22408674).
 # Date: October 20, 2023.
 # Game Expansion Explanation:
 #
@@ -42,6 +42,7 @@
 from termcolor import colored # for colored text
 from art import tprint # for the title
 from abc import ABC, abstractmethod # for abstract classes
+from feedback import Feedback
 import os # for the file system
 import json # for the json files
 import climage # for the image
@@ -156,6 +157,7 @@ class Game:
         self.characters_interacted = False
         self.crime_scene = crime_scene
         self.lbObject = Leaderboard()
+        self.feedback = Feedback()
 
         #its 3AM again
 
@@ -340,6 +342,18 @@ class Game:
                 print(colored(f"{key} is innocent", "green"))
             else:
                 print(colored(f"{key} is guilty", "light_red"))
+
+        #Feedback code from feedback.py
+        print("!!!!! Feedback !!!!!")
+        
+        user_feedback = input("Enter in feedback (or press enter to skip):")
+        if user_feedback:
+            self.feedback.collect_feedback(user_feedback)
+            print("Thank you for your input on the game!")
+
+        self.feedback.display_feedback()
+
+        
 
            
     def interact_with_characters(self):
