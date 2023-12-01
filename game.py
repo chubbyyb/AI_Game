@@ -1,6 +1,6 @@
 ################################################################################
-# CMPU 2016 OOP – TU 857 - Semester 1 Assignment.
-# Group: The Code Wizards.
+# CMPU 2023 OOP – TU 857 - Semester 1 Assignment.
+# Group: OOPs I did it again
 
 # Members:
 # 1. Keith Salhani (student ID: C22322811).
@@ -166,6 +166,11 @@ class Game:
         self.doors_investigated = {} # dictionary to keep track of investigated rooms
         self.doors = [] # state the scene names that exist
 
+
+        self.loggable = Loggable() # For logging player interactions
+        self.__eloggable = Loggable() # For logging errors
+        self.loggable.add_log("Game started")
+
         story_files = []
         i=1
         for files in os.listdir("stories"):
@@ -177,13 +182,15 @@ class Game:
         print(f"{i}. Generate New Story")
 
         load_story_input = int(input(colored("Which story would you like to play? ", "white")))
-        if(load_story_input == i):
+        if(load_story_input == i): # If the user wants to generate a new story (always the last option)
             story = Story()
             print("Generating story...")
             story_title = story.make_story()
-            if(story_title == 0): story_title = story_files[load_story_input-2]
+            if(story_title == 0): # If the story generation failed
+                story_title = story_files[load_story_input-2] # Load the default story
+                self.__eloggable.add_log("Error: AI Generated story failed, loading default story") # Log the error
         else:
-            story_title = story_files[load_story_input-1]
+            story_title = story_files[load_story_input-1] # Load the story the user selected
 
         with open(story_title, "r") as f:
             self.story = json.load(f) # load the AI generated JSON
@@ -210,9 +217,6 @@ class Game:
                 self.doors.append(i)
 
 
-        self.loggable = Loggable() # For logging player interactions
-        self.__eloggable = Loggable() # For logging errors
-        self.loggable.add_log("Game started")
         self.save_files = {} # Dictionary to look at all the save files
 
         load_save_input = input(colored("Would you like to load a save file (y/n)? ", "white"))
@@ -230,12 +234,12 @@ class Game:
         return self.__eloggable.logs
     
     def run(self):
-        tprint(self.story["title"])
-        for i in self.story["story"]:
+        tprint(self.story["title"]) # Print the title in ascii
+        for i in self.story["story"]: # Print the story
             print(i)
 
-        img = climage.convert('stories/'+self.story["title"]+".png")
-        print(img)
+        img = climage.convert('stories/'+self.story["title"]+".png") # Convert the story image to ascii i think
+        print(img) # Print the image
 
 
         while self.running:
@@ -380,15 +384,15 @@ class Game:
 
     def examine_clues(self):
         if not self.crime_scene.investigated:
-            for key, value in self.story["clues"].items():
-                if(self.currentScene == key and not self.doors_investigated[self.currentScene]):
-                    self.loggable.add_log(f"You investigate {key} and find {value}")
-                    print(colored(f"You investigate {key} - You find {value}","light_yellow"))
-                    self.crime_scene.add_clue(value)
-                    self.doors_investigated[self.currentScene] = True
-                    return
+            for key, value in self.story["clues"].items(): # For every clue in the story
+                if(self.currentScene == key and not self.doors_investigated[self.currentScene]): # If the current scene is the same as the key and the door has not been investigated
+                    self.loggable.add_log(f"You investigate {key} and find {value}") # Log the investigation
+                    print(colored(f"You investigate {key} - You find {value}","light_yellow")) # Print the investigation
+                    self.crime_scene.add_clue(value) # Add the clue to the crime scene
+                    self.doors_investigated[self.currentScene] = True # Set the door to investigated
+                    return # Exit the function
                 
-            print(f"Already investigated {self.currentScene}")
+            print(f"Already investigated {self.currentScene}") 
             self.doors_investigated[self.currentScene] = True
 
             if(not any(self.doors_investigated) == True):
@@ -398,8 +402,8 @@ class Game:
 
 
     def enter_room(self):
-        for i, value in enumerate(self.doors, 1):
-            if(self.doorSelected == i):
+        for i, value in enumerate(self.doors, 1): # For every door in the room
+            if(self.doorSelected == i): 
                 self.loggable.add_log(f">> {value}")
                 print(f">> {value}")
 
