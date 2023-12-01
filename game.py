@@ -352,10 +352,10 @@ class Game:
         
         user_feedback = input("Enter in feedback (or press enter to skip):")
         if user_feedback:
-            self.feedback.collect_feedback(user_feedback)
+            self.feedback.get_feedback(user_feedback)
             print("Thank you for your input on the game!")
 
-        self.feedback.display_feedback()
+        self.feedback.print_feedback()
 
         
 

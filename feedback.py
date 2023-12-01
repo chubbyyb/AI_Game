@@ -17,5 +17,5 @@ class Feedback:
             print("!!!!! Feedback !!!!!")
             for i in range(len(self.feedback)):
                 print(f"{i + 1}. {self.feedback[i]}")
-            print("!!!!!!!!!!")
+            print("!!!!!!!!!!!!!!!!!!!!")
 
