@@ -418,13 +418,13 @@ class Game:
             print(colored(f"{i}. {value} "))
 
         try:
-            self.doorSelected = int(input())
-            self.currentScene = self.doors[self.doorSelected-1]
-            self.enter_room()
+            self.doorSelected = int(input()) # Get the door the user wants to enter as an INT
+            self.currentScene = self.doors[self.doorSelected-1] # Set the current scene to the door the user selected
+            self.enter_room() # Enter the room
         except IndexError as ie:
-            self.__eloggable.add_log(f"Error: door {self.doorSelected} - {ie}")
+            self.__eloggable.add_log(f"Error: door {self.doorSelected} - {ie}") # Log the error
         except ValueError as ve:
-            self.__eloggable.add_log(f"Error: {ve}")
+            self.__eloggable.add_log(f"Error: {ve}") # Log the error
 
         
 
