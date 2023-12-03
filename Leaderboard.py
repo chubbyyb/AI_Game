@@ -8,9 +8,9 @@ class Leaderboard:
 
     def checkScore(self, name):
         try:
-            print(self.jsonFile[name])
+            print(f"Your score is: {self.jsonFile[name]}")
         except:
-            print("User doesn't exist")
+            print("This is your first time playing! Welcome!")
             self.createScore(name)
 
     def createScore(self, name):
